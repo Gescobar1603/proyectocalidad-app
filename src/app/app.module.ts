@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule} from '@angular/common/http';
 
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
@@ -35,10 +36,11 @@ import { OrdenDeEnvioService } from './ordenes-de-envios/orden-de-envio.service'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
-    ClienteService,RutaService,CategoriaService,SucursalService,PaqueteService,OrdenDeEnvioService 
+    ClienteService,RutaService,CategoriaService,SucursalService,PaqueteService,OrdenDeEnvioService
   ],
   bootstrap: [AppComponent]
 })
