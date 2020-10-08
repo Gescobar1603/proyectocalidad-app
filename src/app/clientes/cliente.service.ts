@@ -20,7 +20,7 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<Cliente>(this.url,cliente,{headers: this.httpHeaders});
   }
 
-  getCliente(dni): Observable<Cliente>{
+  getCliente(dni: number): Observable<Cliente>{
     return this.http.get<Cliente>(`${this.url}/${dni}`);
   }
 
@@ -29,6 +29,7 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
       `${this.url}/${cliente.idCliente}`,cliente,{headers: this.httpHeaders}
     );
   }
+
   deshabilitarCliente(dni: number): void{
     this.http.put<Cliente>(
         `${this.url +"/deshabilitar"}/${dni}`,{headers: this.httpHeaders}
