@@ -1,0 +1,354 @@
+<div class="container mt-5 mb-5">
+  <div class="card">
+    <div class="card-header text-center">
+      <h1><strong>Crear Orden De Envio</strong></h1>
+    </div>
+    <div class="card-body">
+          <div class="input-group">
+            <div class="col-md-5 mb-4">
+              <label>Sucursal Emisor</label>
+              <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)]="sucursalEmisor.nombre+ ' ' +sucursalEmisor.codigo" name="sucursalEmisor" disabled="disabled">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSucursalEmisor">Elegir Sucursal</button>
+              </div>
+              </div>
+            </div>
+            <div class="col-md-5 mb-4">
+              <label>Sucursal Receptor</label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="sucursalReceptor.nombre + ' ' +sucursalReceptor.codigo" disabled="disabled" name="sucursalReceptor" placeholder="Sucursal">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSucursalReceptor">Elegir Sucursal</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 mb-4">
+              <label>Cliente Emisor</label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="clienteEmisor.nombres +' '+clienteEmisor.apellidos" name="clienteEmisor" disabled="disabled">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalClienteEmisor">Elegir Cliente</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 mb-4">
+              <label>Cliente Receptor</label>
+              <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="clienteReceptor.nombres + ' ' +clienteReceptor.apellidos" name="clienteReceptor" disabled="disabled">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalClienteReceptor" >Elegir Cliente</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <div>
+              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalPaquete">Agregar Paquete</button>
+            </div>
+          <div class="card">
+          <div class="table-responsive">
+            <div class="card-body">
+              <table class="table table-bordered table-hover">
+                <thead class="thead-dark text-center">
+                  <tr>
+                    <th>Descripcion</th>
+                    <th>Fragilidad</th>
+                    <th>Peso(Kg)</th>
+                    <th>Accion</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngFor="let paqueteaux of paquetes">
+                    <td><strong>{{paqueteaux.descripcion}}</strong></td>
+                    <td>
+                      <div *ngIf="paqueteaux.fragilidad == true else noFragil">
+                        <label class="bg-success btn-circle">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                          </svg>
+                        </label>
+                      </div>
+                      <ng-template #noFragil>
+                        <label class="bg-danger btn-circle">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </label>
+                      </ng-template>
+                    </td>
+                    <td><strong>{{paqueteaux.peso}}</strong></td>
+                    <td><button class="btn btn-danger" name="Eliminar" (click)="eliminarPaquete(paqueteaux) ">Eliminar</button></td>
+                </tbody>
+              </table>
+            </div>
+           </div>
+          </div>
+        </div>
+    <div class="card-header text-center">
+      <button class="btn btn-success"  type="button" data-toggle="modal" data-target="#modalProcesar" (click) = "procesarOrden()">Procesar Orden</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalPaquete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <strong>Agregar Paquete</strong>
+        <button type="button" class="close"  aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form>
+          <div class="modal-body">
+            <div class="container form-row align-items-center">
+              <div class="col-md-5 mb-5" >
+                <label>Descripcion</label>
+                <textarea class="form-control" aria-label="With textarea" [(ngModel)]="paquete.descripcion" name="descripcion" ></textarea>
+              </div>
+              <div class="col-md-5 mb-5" >
+                <label>Fragilidad</label>
+                <input type="checkbox" class="form-control" [(ngModel)]="paquete.fragilidad" name="fragilidad">
+              </div>
+              <div class="col-md-5 mb-5" >
+                <label>Peso</label>
+                <input type="number" class="form-control" [(ngModel)]="paquete.peso" name ="peso">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button role="button" class="btn btn-primary" (click) = "agregarPaquete()" aria-label="Close" data-dismiss="modal">Guardar Cambios</button>
+           <button type="button" class="btn btn-secondary" aria-label="Close" data-dismiss="modal" >Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSucursalReceptor">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong>Elegir Sucursal Receptor</strong>
+        <button type="button" class="close"  aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive" >
+        <div class="card-body">
+          <table class="table table-bordered table-hover mt-1 mb-1">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th>Nombre</th>
+                <th>Codigo</th>
+                <th>Direccion</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let sucursalaux of sucursales">
+                <td>{{sucursalaux.nombre}}</td>
+                <td>{{sucursalaux.codigo}}</td>
+                <td>{{sucursalaux.direccion}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursalReceptor(sucursalaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+            </tbody>
+          </table>
+        </div>
+        </div>
+       </div>
+      </div>
+      </div>
+</div>
+
+<div class="modal fade" id="modalSucursalEmisor">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong>Elegir Sucursal Emisor</strong>
+        <button type="button" class="close"  aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive" >
+        <div class="card-body">
+          <table class="table table-bordered table-hover mt-1 mb-1">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th>Nombre</th>
+                <th>Codigo</th>
+                <th>Direccion</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let sucursalaux of sucursales">
+                <td>{{sucursalaux.nombre}}</td>
+                <td>{{sucursalaux.codigo}}</td>
+                <td>{{sucursalaux.direccion}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursalEmisor(sucursalaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+            </tbody>
+          </table>
+        </div>
+        </div>
+       </div>
+      </div>
+      </div>
+</div>
+
+<div class="modal fade" id="modalClienteEmisor">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong>Elegir Cliente</strong>
+        <button type="button" class="close"  aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive" >
+        <div class="card-body">
+          <table class="table table-bordered table-hover mt-1 mb-1">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Dni</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let clienteaux of clientes">
+                <td>{{clienteaux.nombres}}</td>
+                <td>{{clienteaux.apellidos}}</td>
+                <td>{{clienteaux.dni}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirClienteEmisor(clienteaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+            </tbody>
+          </table>
+        </div>
+        </div>
+       </div>
+      </div>
+      </div>
+</div>
+
+<div class="modal fade" id="modalClienteReceptor">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong>Elegir Cliente</strong>
+        <button type="button" class="close"  aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+        <div class="card-body">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark text-center">
+              <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Dni</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let clienteaux of clientes">
+                <td>{{clienteaux.nombres}}</td>
+                <td>{{clienteaux.apellidos}}</td>
+                <td>{{clienteaux.dni}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirClienteReceptor(clienteaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+            </tbody>
+          </table>
+        </div>
+        </div>
+       </div>
+      </div>
+      </div>
+</div>
+
+<div class="modal fade" id="modalProcesar">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong>Procesar Orden</strong>
+        <button type="button" class="close"  aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <div class="modal-body">
+            <div class="container form-row align-items-center">
+              <div class="col-md-5 mb-5" >
+                <label>Sucursal Emisor</label>
+                <input type="text" class="form-control" [(ngModel)]="sucursalEmisor.nombre+ ' ' +sucursalEmisor.codigo" name="sucursalEmisor" disabled="disabled">
+              </div>
+              <div class="col-md-5 mb-5" >
+                <label>Sucursal Receptor</label>
+                <input type="text" class="form-control" [(ngModel)]="sucursalReceptor.nombre + ' ' +sucursalReceptor.codigo" disabled="disabled" name="sucursalReceptor">
+              </div>
+              <div class="col-md-5 mb-5" >
+                <label>Cliente Emisor</label>
+                <input type="text" class="form-control" [(ngModel)]="clienteEmisor.nombres +' '+clienteEmisor.apellidos" name="clienteEmisor" disabled="disabled">
+              </div>
+              <div class="col-md-5 mb-5">
+                <label>Cliente Receptor</label>
+                <input type="text" class="form-control" [(ngModel)]="clienteReceptor.nombres + ' ' +clienteReceptor.apellidos" name="clienteReceptor" disabled="disabled">
+              </div>
+              <div class="table-responsive">
+                <div class="card-body">
+                  <table class="table table-bordered table-hover">
+                    <thead class="thead-dark text-center">
+                      <tr>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th>Fragilidad</th>
+                        <th>Peso(Kg)</th>
+                        <th>Categoria</th>
+                        <th>Precio Por categoria</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center">
+                      <tr *ngFor="let paquete of ordenDeEnvio.paquetes">
+                        <td>{{paquete.codigo}}</td>
+                        <td>{{paquete.descripcion}}</td>
+                        <td>
+                          <div *ngIf="paquete.fragilidad == true else noFragil">
+                            <label class="bg-success btn-circle">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                              </svg>
+                            </label>
+                          </div>
+                          <ng-template #noFragil>
+                            <label class="bg-danger btn-circle">
+                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x text-white" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </label>
+                          </ng-template>
+                        </td>
+                        <td>{{paquete.peso}}</td>
+                        <td>{{paquete.categoria.tipoCategoria}}</td>
+                        <td>{{paquete.categoria.costo}}</td>
+                    </tbody>
+                  </table>
+                </div>
+                  <div class="card-header text-center">
+                    <h6>Costo Por Categoria<span class="badge badge-secondary" >{{ordenDeEnvioProcesada.precioCategoria}}</span></h6>
+                    <h6>Costo Por Transporte<span class="badge badge-secondary">{{ordenDeEnvioProcesada.precioTransporte}}</span></h6>
+                    <h5>Costo Total de la Orden<span class="badge badge-secondary">{{ordenDeEnvioProcesada.precioTotal}}</span></h5>
+                  </div>
+               </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button role="button" class="btn btn-primary" (click) = "guardarOrden()" aria-label="Close" data-dismiss="modal">Guardar Orden</button>
+           <button type="button" class="btn btn-secondary" aria-label="Close" data-dismiss="modal">Cancelar Orden</button>
+          </div>
+      </div>
+    </div>
+</div>
