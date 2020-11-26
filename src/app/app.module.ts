@@ -29,6 +29,7 @@ const routes: Routes = [
   {path: 'ReportesGerenciales/form', component: ReportesGerencialesController}
 
 ];
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -13,18 +13,19 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
-  getOrdenDeEnvios():Observable<OrdenDeEnvio[]>{
+  obtenerOrdenesDeEnvio():Observable<OrdenDeEnvio[]>{
     return this.http.get<OrdenDeEnvio[]>(this.url);
   }
-  createOrdenDeEnvio(ordenDeEnvio: OrdenDeEnvio): Observable<OrdenDeEnvio>{
+
+  guardarOrdenDeEnvio(ordenDeEnvio: OrdenDeEnvio): Observable<OrdenDeEnvio>{
     return this.http.post<OrdenDeEnvio>(this.url,ordenDeEnvio,{headers: this.httpHeaders});
   }
 
-  getOrdenDeEnvio(idOrdenDeEnvio: number): Observable<OrdenDeEnvio>{
+  listarOrdenDeEnvio(idOrdenDeEnvio: number): Observable<OrdenDeEnvio>{
     return this.http.get<OrdenDeEnvio>(`${this.url}/${idOrdenDeEnvio}`);
   }
 
-  updateOrdenDeEnvio(ordenDeEnvio:OrdenDeEnvio) : Observable<OrdenDeEnvio>{
+  actualizarOrdenDeEnvio(ordenDeEnvio:OrdenDeEnvio) : Observable<OrdenDeEnvio>{
     return this.http.put<OrdenDeEnvio>(
       `${this.url}/${ordenDeEnvio.idOrdenDeEnvio}`,ordenDeEnvio,{headers: this.httpHeaders}
     );

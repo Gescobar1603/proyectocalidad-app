@@ -13,21 +13,21 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
-  getSucursals():Observable<Sucursal[]>{
+  obtenerSucursales():Observable<Sucursal[]>{
     return this.http.get<Sucursal[]>(this.url);
   }
-  createSucursal(sucursal: Sucursal): Observable<Sucursal>{
+  guardarSucursal(sucursal: Sucursal): Observable<Sucursal>{
     return this.http.post<Sucursal>(this.url,sucursal,{headers: this.httpHeaders});
   }
 
-  getSucursal(idSucursal: number): Observable<Sucursal>{
+  buscarSucursal(idSucursal: number): Observable<Sucursal>{
     return this.http.get<Sucursal>(`${this.url}/${idSucursal}`);
   }
-  getSucursalNombre(nombre: String): Observable<Sucursal>{
+  buscarSucursalPorNombre(nombre: String): Observable<Sucursal>{
     return this.http.get<Sucursal>(`${this.url}/nombre/${nombre}`);
   }
 
-  updateSucursal(sucursal:Sucursal) : Observable<Sucursal>{
+  actualizarSucursal(sucursal:Sucursal) : Observable<Sucursal>{
     return this.http.put<Sucursal>(
       `${this.url}/${sucursal.idSucursal}`,sucursal,{headers: this.httpHeaders}
     );

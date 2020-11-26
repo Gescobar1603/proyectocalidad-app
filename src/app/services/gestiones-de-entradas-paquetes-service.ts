@@ -13,7 +13,7 @@ export class GestionesDeEntradasPaquetesService {
 
   constructor(private http: HttpClient) { }
 
-  cotizarPaquete(paquetes:Paquete[]) : Observable<Paquete[]>{
+  cotizarPaquetes(paquetes:Paquete[]) : Observable<Paquete[]>{
     return this.http.post<Paquete[]>(
       `${this.url+"gestionarRecepcionDePaquetes/paquete"}`,paquetes,{headers: this.httpHeaders}
     );

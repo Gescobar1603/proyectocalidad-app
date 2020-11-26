@@ -13,28 +13,28 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
-  getCategorias():Observable<Categoria[]>{
+  obtenerCategorias():Observable<Categoria[]>{
     return this.http.get<Categoria[]>(this.url);
   }
-  createCategoria(categoria: Categoria): Observable<Categoria>{
+  guardarCategoria(categoria: Categoria): Observable<Categoria>{
     return this.http.post<Categoria>(this.url,categoria,{headers: this.httpHeaders});
   }
 
-  getCategoria(idCategoria: number): Observable<Categoria>{
+  buscarCategoria(idCategoria: number): Observable<Categoria>{
     return this.http.get<Categoria>(`${this.url}/${idCategoria}`);
   }
 
-  updateCategoria(categoria:Categoria) : Observable<Categoria>{
-    return this.http.put<Categoria>(
-      `${this.url}/${categoria.idCategoria}`,categoria,{headers: this.httpHeaders}
+  actualizarCategoria(categoria:Categoria) : Observable<Categoria>{
+    return this.http.put<Categoria>(`${this.url}/${categoria.idCategoria}`,categoria,{headers: this.httpHeaders}
     );
   }
 
   deshabilitarCategoria(idCategoria: number): void{
-    this.http.put<Categoria>(
-        `${this.url +"/deshabilitar"}/${idCategoria}`,{headers: this.httpHeaders}
+    this.http.put<Categoria>(`${this.url +"/deshabilitar"}/${idCategoria}`,{headers: this.httpHeaders}
     )
   }
-
+  buscarCategoriaConElPesoMaximoMasAlto(): Observable<Categoria>{
+    return this.http.get<Categoria>(`${this.url}/pesoMaximo`);
+  }
 
 }

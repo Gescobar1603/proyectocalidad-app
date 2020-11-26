@@ -86,7 +86,7 @@
           </div>
         </div>
     <div class="card-header text-center">
-      <button class="btn btn-success"  type="button" data-toggle="modal" data-target="#modalProcesar" (click) = "procesarOrden()">Procesar Orden</button>
+      <button class="btn btn-success"  type="button" data-toggle="modal" data-target="#modalProcesar" (click) = "procesarOrdenDeEnvio()">Procesar Orden</button>
     </div>
     </div>
   </div>
@@ -149,11 +149,11 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let sucursalaux of sucursales">
-                <td>{{sucursalaux.nombre}}</td>
-                <td>{{sucursalaux.codigo}}</td>
-                <td>{{sucursalaux.direccion}}</td>
-                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursalReceptor(sucursalaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+              <tr *ngFor="let sucursal of sucursales">
+                <td>{{sucursal.nombre}}</td>
+                <td>{{sucursal.codigo}}</td>
+                <td>{{sucursal.direccion}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursalReceptor(sucursal)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
             </tbody>
           </table>
         </div>
@@ -185,11 +185,11 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let sucursalaux of sucursales">
-                <td>{{sucursalaux.nombre}}</td>
-                <td>{{sucursalaux.codigo}}</td>
-                <td>{{sucursalaux.direccion}}</td>
-                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursalEmisor(sucursalaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+              <tr *ngFor="let sucursal of sucursales">
+                <td>{{sucursal.nombre}}</td>
+                <td>{{sucursal.codigo}}</td>
+                <td>{{sucursal.direccion}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursalEmisor(sucursal)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
             </tbody>
           </table>
         </div>
@@ -221,11 +221,11 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let clienteaux of clientes">
-                <td>{{clienteaux.nombres}}</td>
-                <td>{{clienteaux.apellidos}}</td>
-                <td>{{clienteaux.dni}}</td>
-                <td><button class="btn btn-success" name="Elejir" (click)="elegirClienteEmisor(clienteaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+              <tr *ngFor="let cliente of clientes">
+                <td>{{cliente.nombres}}</td>
+                <td>{{cliente.apellidos}}</td>
+                <td>{{cliente.dni}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirClienteEmisor(cliente)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
             </tbody>
           </table>
         </div>
@@ -257,11 +257,11 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let clienteaux of clientes">
-                <td>{{clienteaux.nombres}}</td>
-                <td>{{clienteaux.apellidos}}</td>
-                <td>{{clienteaux.dni}}</td>
-                <td><button class="btn btn-success" name="Elejir" (click)="elegirClienteReceptor(clienteaux)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+              <tr *ngFor="let cliente of clientes">
+                <td>{{cliente.nombres}}</td>
+                <td>{{cliente.apellidos}}</td>
+                <td>{{cliente.dni}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="elegirClienteReceptor(cliente)" aria-label="Close" data-dismiss="modal">Elegir</button></td>
             </tbody>
           </table>
         </div>
@@ -346,8 +346,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button role="button" class="btn btn-primary" (click) = "guardarOrden()" aria-label="Close" data-dismiss="modal">Guardar Orden</button>
-           <button type="button" class="btn btn-secondary" aria-label="Close" data-dismiss="modal">Cancelar Orden</button>
+            <button role="button" class="btn btn-primary" (click) = "guardarOrdenDeEnvio()" aria-label="Close" data-dismiss="modal">Guardar Orden</button>
+            <button type="button" class="btn btn-secondary" aria-label="Close" data-dismiss="modal">Cancelar Orden</button>
           </div>
       </div>
     </div>

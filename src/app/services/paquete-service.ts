@@ -13,7 +13,7 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
-  getPaquetes():Observable<Paquete[]>{
+  obtenerPaquetes():Observable<Paquete[]>{
     return this.http.get<Paquete[]>(this.url);
   }
   createPaquete(paquete: Paquete): Observable<Paquete>{

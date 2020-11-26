@@ -13,18 +13,18 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
-  getClientes():Observable<Cliente[]>{
+  obtenerClientes():Observable<Cliente[]>{
     return this.http.get<Cliente[]>(this.url);
   }
-  createCliente(cliente: Cliente): Observable<Cliente>{
+  guardarCliente(cliente: Cliente): Observable<Cliente>{
     return this.http.post<Cliente>(this.url,cliente,{headers: this.httpHeaders});
   }
 
-  getCliente(dni: number): Observable<Cliente>{
+  buscarCliente(dni: number): Observable<Cliente>{
     return this.http.get<Cliente>(`${this.url}/${dni}`);
   }
 
-  updateCliente(cliente:Cliente) : Observable<Cliente>{
+  actualizarCliente(cliente:Cliente) : Observable<Cliente>{
     return this.http.put<Cliente>(
       `${this.url}/${cliente.idCliente}`,cliente,{headers: this.httpHeaders}
     );

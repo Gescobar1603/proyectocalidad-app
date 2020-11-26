@@ -13,18 +13,18 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
-  getRutas():Observable<Ruta[]>{
+  obtenerRutas():Observable<Ruta[]>{
     return this.http.get<Ruta[]>(this.url);
   }
-  createRuta(ruta: Ruta): Observable<Ruta>{
+  guardarRuta(ruta: Ruta): Observable<Ruta>{
     return this.http.post<Ruta>(this.url,ruta,{headers: this.httpHeaders});
   }
 
-  getRuta(idRuta: number): Observable<Ruta>{
+  buscarRuta(idRuta: number): Observable<Ruta>{
     return this.http.get<Ruta>(`${this.url}/${idRuta}`);
   }
 
-  updateRuta(ruta:Ruta) : Observable<Ruta>{
+  actualizarRuta(ruta:Ruta) : Observable<Ruta>{
     return this.http.put<Ruta>(
       `${this.url}/${ruta.idRuta}`,ruta,{headers: this.httpHeaders}
     );
@@ -35,7 +35,7 @@ private httpHeaders = new  HttpHeaders({'Content-Type': 'application/json'});
         `${this.url +"/deshabilitar"}/${idRuta}`,{headers: this.httpHeaders}
     )
   }
-  getRutaPorSucursales(idSucursalEmisor: number,idSucursalReceptor:number): Observable<Ruta>{
+  buscarRutaPorSucursales(idSucursalEmisor: number,idSucursalReceptor:number): Observable<Ruta>{
     return this.http.get<Ruta>(`${this.url}/buscar/${idSucursalEmisor}/${idSucursalReceptor}`)
   }
 

@@ -8,18 +8,18 @@
             <div class="col-md-5 mb-4">
               <label>Sucursal</label>
               <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="sucursal.nombre+ ' ' +sucursal.codigo" name="sucursal" disabled="disabled">
+              <input type="text" class="form-control"  disabled="disabled">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSucursal" (click) ="showSucursales()">Elegir Sucursal</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalSucursal">Elegir Sucursal</button>
               </div>
               </div>
             </div>
             <div class="col-md-5 mb-4">
               <label>Categoria</label>
               <div class="input-group">
-                <input type="text" class="form-control" [(ngModel)]="categoria.tipoCategoria" disabled="disabled" name="sucursalReceptor">
+                <input type="text" class="form-control" disabled="disabled" >
                 <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCategoria" (click) ="showCategorias()">Elegir Categoria</button>
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCategoria">Elegir Categoria</button>
                 </div>
               </div>
             </div>
@@ -50,11 +50,11 @@
               </tr>
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let sucursalaux of sucursales">
-                <td>{{sucursalaux.nombre}}</td>
-                <td>{{sucursalaux.codigo}}</td>
-                <td>{{sucursalaux.direccion}}</td>
-                <td><button class="btn btn-success" name="Elejir" (click)="elegirSucursal(sucursalaux)"type="button" data-toggle="modal" data-target="#modalReporteSucursal" aria-label="Close" data-dismiss="modal">Elegir</button></td>
+              <tr *ngFor="let sucursal of sucursales">
+                <td>{{sucursal.nombre}}</td>
+                <td>{{sucursal.codigo}}</td>
+                <td>{{sucursal.direccion}}</td>
+                <td><button class="btn btn-success" name="Elejir" (click)="reportarPaquetesDeSucursal(sucursal)"type="button" data-toggle="modal" data-target="#modalReporteSucursal" aria-label="Close" data-dismiss="modal">Elegir</button></td>
             </tbody>
           </table>
         </div>
@@ -92,7 +92,7 @@
                 <td>{{categoria.costo}}</td>
                 <td>{{categoria.pesoMaximo}}</td>
                 <td>{{categoria.pesoMinimo}}</td>
-                <td><button class="btn btn-success" name="Elejir" (click)="elegirCategoria(categoria)" aria-label="Close" data-dismiss="modal" type="button" data-toggle="modal" data-target="#modalReporteCategoria" >Elegir</button></td>
+                <td><button class="btn btn-success" name="Elejir" (click)="reportarPaquetesDeCategoria(categoria)" aria-label="Close" data-dismiss="modal" type="button" data-toggle="modal" data-target="#modalReporteCategoria" >Elegir</button></td>
             </tbody>
           </table>
         </div>
