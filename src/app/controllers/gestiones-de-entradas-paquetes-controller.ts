@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GestionesDeEntradasPaquetesService } from '../services/gestiones-de-entradas-paquetes-service'
-
 import { Paquete } from '../entities/paquete';
 import { OrdenDeEnvio } from '../entities/orden-de-envio';
 import { Sucursal } from '../entities/sucursal';
@@ -8,7 +7,6 @@ import { Cliente } from '../entities/cliente';
 import { Categoria } from '../entities/categoria';
 import { Ruta } from '../entities/ruta';
 import swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-gestiones-de-entradas-paquetes',
@@ -38,9 +36,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
   categoriaConPesoMaximoMasAlto: Categoria = new Categoria();
   ruta: Ruta = new Ruta();
 
-  constructor(
-    private gestionesDeEntradasPaquetesService: GestionesDeEntradasPaquetesService,
-   ) { }
+  constructor(private gestionesDeEntradasPaquetesService: GestionesDeEntradasPaquetesService) { }
 
   ngOnInit(): void {
     this.gestionesDeEntradasPaquetesService.obtenerSucursales().subscribe(sucursales =>{this.sucursales = sucursales});
@@ -49,6 +45,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
   }
 
   agregarPaquete():void{
+
     if(this.paquete.peso > this.categoriaConPesoMaximoMasAlto.pesoMaximo){
 
       swal.fire({title: 'Peso Excedido',icon: 'error'})
@@ -181,7 +178,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
       return true;
     }
 
-    private validarRuta(): boolean{
+  private validarRuta(): boolean{
 
       this.gestionesDeEntradasPaquetesService.buscarRutaPorSucursales(this.sucursalEmisor.idSucursal,this.sucursalReceptor.idSucursal).subscribe(
         ruta => {
@@ -197,4 +194,4 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
         })
       return true;
     }
-  }
+}
