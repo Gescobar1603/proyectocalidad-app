@@ -43,7 +43,7 @@ export class GestionesDeEntradasPaquetesService {
   }
 
   buscarRutaPorSucursales(idSucursalEmisor: number,idSucursalReceptor:number): Observable<Ruta>{
-    return this.http.get<Ruta>(`${this.url}/rutas/buscar/${idSucursalEmisor}/${idSucursalReceptor}`)
+    return this.http.get<Ruta>(`${this.url}/rutas/buscar/${idSucursalEmisor}/${idSucursalReceptor}`);
   }
 
   obtenerSucursales():Observable<Sucursal[]>{

@@ -126,7 +126,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.gestionesDeEntradasPaquetesService.guardarOrden(this.ordenDeEnvioProcesada).subscribe(
-            ordenGuardada => {
+            (ordenGuardada) => {
             this.ordenDeEnvioProcesada = ordenGuardada
             swal.fire({
               title:'Orden de Envio Registrada!',
@@ -181,7 +181,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
   private validarRuta(): boolean{
 
       this.gestionesDeEntradasPaquetesService.buscarRutaPorSucursales(this.sucursalEmisor.idSucursal,this.sucursalReceptor.idSucursal).subscribe(
-        ruta => {
+        (ruta) => {
           this.ruta = ruta
 
           if(this.ruta == new Ruta() || this.ruta == undefined || this.ruta == null) {
