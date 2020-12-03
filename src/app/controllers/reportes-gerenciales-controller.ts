@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SucursalService } from '../services/sucursal-service';
-import { CategoriaService } from '../services/categoria-service';
 import { ReportesGerencialesService } from '../services/reportes-gerenciales-service';
 import { Paquete } from '../entities/paquete';
 import { Sucursal } from '../entities/sucursal';
@@ -24,14 +22,13 @@ export class ReportesGerencialesController implements OnInit {
   ingresoTotalSucursal: number = 0;
   ingresoTotalCategoria: number = 0;
 
-  constructor(private sucursalService: SucursalService,
-    private categoriaService: CategoriaService,
-    private reportesGerencialesService: ReportesGerencialesService,
+  constructor(
+    private reportesGerencialesService: ReportesGerencialesService
     ) { }
 
   ngOnInit(): void {
-    this.sucursalService.obtenerSucursales().subscribe( sucursales =>{this.sucursales = sucursales});
-    this.categoriaService.obtenerCategorias().subscribe( categorias =>{this.categorias = categorias});
+    this.reportesGerencialesService.obtenerSucursales().subscribe( sucursales =>{this.sucursales = sucursales});
+    this.reportesGerencialesService.obtenerCategorias().subscribe( categorias =>{this.categorias = categorias});
   }
 
   reportarPaquetesDeSucursal(sucursal:Sucursal){

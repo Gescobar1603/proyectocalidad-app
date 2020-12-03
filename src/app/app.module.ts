@@ -12,12 +12,6 @@ import {FooterController} from './controllers/footer-controller';
 import { GestionesDeEntradasPaquetesController } from './controllers/gestiones-de-entradas-paquetes-controller';
 import { ReportesGerencialesController } from './controllers/reportes-gerenciales-controller';
 
-import { ClienteService } from './services/cliente-service';
-import { RutaService } from './services/ruta-service';
-import { CategoriaService } from './services/categoria-service';
-import { SucursalService } from './services/sucursal-service';
-import { PaqueteService } from './services/paquete-service';
-import { OrdenDeEnvioService } from './services/orden-de-envio-service';
 import { GestionesDeEntradasPaquetesService } from './services/gestiones-de-entradas-paquetes-service';
 import { ReportesGerencialesService } from './services/reportes-gerenciales-service';
 
@@ -48,12 +42,6 @@ const routes: Routes = [
 
   ],
   providers: [
-    ClienteService,
-    RutaService,
-    CategoriaService,
-    SucursalService,
-    PaqueteService,
-    OrdenDeEnvioService,
     GestionesDeEntradasPaquetesService,
     ReportesGerencialesService
   ],

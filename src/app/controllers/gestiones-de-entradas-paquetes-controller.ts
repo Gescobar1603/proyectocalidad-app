@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SucursalService } from '../services/sucursal-service';
-import { ClienteService } from '../services/cliente-service';
 import { GestionesDeEntradasPaquetesService } from '../services/gestiones-de-entradas-paquetes-service'
-import { RutaService } from '../services/ruta-service';
+
 import { Paquete } from '../entities/paquete';
 import { OrdenDeEnvio } from '../entities/orden-de-envio';
 import { Sucursal } from '../entities/sucursal';
@@ -10,7 +8,6 @@ import { Cliente } from '../entities/cliente';
 import { Categoria } from '../entities/categoria';
 import { Ruta } from '../entities/ruta';
 import swal from 'sweetalert2';
-import { CategoriaService } from '../services/categoria-service';
 
 
 @Component({
@@ -42,17 +39,13 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
   ruta: Ruta = new Ruta();
 
   constructor(
-    private sucursalService: SucursalService,
-    private clienteService: ClienteService,
-    private rutaService: RutaService,
-    private categoriaService: CategoriaService,
     private gestionesDeEntradasPaquetesService: GestionesDeEntradasPaquetesService,
    ) { }
 
   ngOnInit(): void {
-    this.sucursalService.obtenerSucursales().subscribe(sucursales =>{this.sucursales = sucursales});
-    this.clienteService.obtenerClientes().subscribe(clientes => {this.clientes = clientes});
-    this.categoriaService.buscarCategoriaConElPesoMaximoMasAlto().subscribe(categoriaConPesoMaximoMasAlto => {this.categoriaConPesoMaximoMasAlto = categoriaConPesoMaximoMasAlto});
+    this.gestionesDeEntradasPaquetesService.obtenerSucursales().subscribe(sucursales =>{this.sucursales = sucursales});
+    this.gestionesDeEntradasPaquetesService.obtenerClientes().subscribe(clientes => {this.clientes = clientes});
+    this.gestionesDeEntradasPaquetesService.buscarCategoriaConElPesoMaximoMasAlto().subscribe(categoriaConPesoMaximoMasAlto => {this.categoriaConPesoMaximoMasAlto = categoriaConPesoMaximoMasAlto});
   }
 
   agregarPaquete():void{
@@ -108,7 +101,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
 
   procesarOrdenDeEnvio():void {
 
-    if(this.validar().valueOf() == true && this.validarRuta().valueOf() == true){
+    if(this.validarIngresos().valueOf() == true && this.validarRuta().valueOf() == true){
         swal.fire({title:'La Orden se ha Procesado!',icon: 'success'})
         this.gestionesDeEntradasPaquetesService.cotizarPaquetes(this.paquetes).subscribe(
             paquetesProcesados => {
@@ -152,7 +145,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
 
   }
 
-  private validar(): boolean{
+  private validarIngresos(): boolean{
 
       if (this.paquetes.length == 0){
 
@@ -190,7 +183,7 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
 
     private validarRuta(): boolean{
 
-      this.rutaService.buscarRutaPorSucursales(this.sucursalEmisor.idSucursal,this.sucursalReceptor.idSucursal).subscribe(
+      this.gestionesDeEntradasPaquetesService.buscarRutaPorSucursales(this.sucursalEmisor.idSucursal,this.sucursalReceptor.idSucursal).subscribe(
         ruta => {
           this.ruta = ruta
 
