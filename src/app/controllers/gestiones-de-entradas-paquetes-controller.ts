@@ -39,23 +39,23 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
   constructor(private gestionesDeEntradasPaquetesService: GestionesDeEntradasPaquetesService) { }
 
   ngOnInit(): void {
-    this.gestionesDeEntradasPaquetesService.obtenerSucursales().subscribe(sucursales =>{this.sucursales = sucursales});
-    this.gestionesDeEntradasPaquetesService.obtenerClientes().subscribe(clientes => {this.clientes = clientes});
-    this.gestionesDeEntradasPaquetesService.buscarCategoriaConElPesoMaximoMasAlto().subscribe(categoriaConPesoMaximoMasAlto => {this.categoriaConPesoMaximoMasAlto = categoriaConPesoMaximoMasAlto});
+    this.gestionesDeEntradasPaquetesService.obtenerSucursales().subscribe( (sucursales) =>{this.sucursales = sucursales});
+    this.gestionesDeEntradasPaquetesService.obtenerClientes().subscribe( (clientes) => {this.clientes = clientes});
+    this.gestionesDeEntradasPaquetesService.buscarCategoriaConElPesoMaximoMasAlto().subscribe( (categoriaConPesoMaximoMasAlto) => {this.categoriaConPesoMaximoMasAlto = categoriaConPesoMaximoMasAlto});
   }
 
   agregarPaquete():void{
 
     if(this.paquete.peso > this.categoriaConPesoMaximoMasAlto.pesoMaximo){
 
-      swal.fire({title: 'Peso Excedido',icon: 'error'})
-      this.paquete = new Paquete()
+      swal.fire({title: 'Peso Excedido',icon: 'error'});
+      this.paquete = new Paquete();
 
     }else{
 
-      swal.fire({title:'El Paquete ' +this.paquete.descripcion +' ha sido agregado correctamente',icon: 'success'})
-      this.paquetes.push(this.paquete)
-      this.paquete = new Paquete()
+      swal.fire({title:'El Paquete ' +this.paquete.descripcion +' ha sido agregado correctamente',icon: 'success'});
+      this.paquetes.push(this.paquete);
+      this.paquete = new Paquete();
 
     }
    }
@@ -72,28 +72,28 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
         confirmButtonText: 'Si!!!'
       }).then((result) => {
         if (result.isConfirmed) {
-          swal.fire('Eliminado!','El Paquete ha sido eliminado de la lista.','success')
+          swal.fire('Eliminado!','El Paquete ha sido eliminado de la lista.','success');
           this.paquetes = this.paquetes.filter(item => item !== paquete);
         }
       })
      }
 
   elegirSucursalEmisor(sucursalaux: Sucursal): void {
-     this.sucursalEmisor = sucursalaux
-     this.ruta = new Ruta()
+     this.sucursalEmisor = sucursalaux;
+     this.ruta = new Ruta();
    }
 
   elegirSucursalReceptor(sucursalaux: Sucursal): void {
-    this.sucursalReceptor = sucursalaux
-    this.ruta = new Ruta()
+    this.sucursalReceptor = sucursalaux;
+    this.ruta = new Ruta();
   }
 
   elegirClienteEmisor(clienteEmisor: Cliente): void {
-      this.clienteEmisor = clienteEmisor
+      this.clienteEmisor = clienteEmisor;
   }
 
   elegirClienteReceptor(clienteReceptor: Cliente): void {
-      this.clienteReceptor = clienteReceptor
+      this.clienteReceptor = clienteReceptor;
   }
 
   procesarOrdenDeEnvio():void {
@@ -102,12 +102,12 @@ export class GestionesDeEntradasPaquetesController implements OnInit {
         swal.fire({title:'La Orden se ha Procesado!',icon: 'success'})
         this.gestionesDeEntradasPaquetesService.cotizarPaquetes(this.paquetes).subscribe(
             paquetesProcesados => {
-            this.ordenDeEnvio.paquetes = paquetesProcesados
-            this.ordenDeEnvio.ruta = this.ruta
-            this.ordenDeEnvio.clienteEmisor=this.clienteEmisor
-            this.ordenDeEnvio.clienteReceptor = this.clienteReceptor
+            this.ordenDeEnvio.paquetes = paquetesProcesados;
+            this.ordenDeEnvio.ruta = this.ruta;
+            this.ordenDeEnvio.clienteEmisor=this.clienteEmisor;
+            this.ordenDeEnvio.clienteReceptor = this.clienteReceptor;
             this.gestionesDeEntradasPaquetesService.procesarOrden(this.ordenDeEnvio).subscribe(
-              ordenDeEnvioProcesada =>{this.ordenDeEnvioProcesada = ordenDeEnvioProcesada}
+              ordenDeEnvioProcesada =>{this.ordenDeEnvioProcesada = ordenDeEnvioProcesada;}
             )
           }
         )

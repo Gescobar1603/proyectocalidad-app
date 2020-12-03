@@ -27,38 +27,39 @@ export class ReportesGerencialesController implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.reportesGerencialesService.obtenerSucursales().subscribe( sucursales =>{this.sucursales = sucursales});
-    this.reportesGerencialesService.obtenerCategorias().subscribe( categorias =>{this.categorias = categorias});
+    this.reportesGerencialesService.obtenerSucursales().subscribe( (sucursales) =>{this.sucursales = sucursales});
+    this.reportesGerencialesService.obtenerCategorias().subscribe( (categorias) =>{this.categorias = categorias});
   }
 
   reportarPaquetesDeSucursal(sucursal:Sucursal){
 
     this.reportesGerencialesService.buscarPaquetesPorSucursal(sucursal.idSucursal).subscribe(
-      paquetesSucursal => {
+      (paquetesSucursal) => {
 
-        this.paquetesSucursal = paquetesSucursal
+        this.paquetesSucursal = paquetesSucursal;
 
         if(this.paquetesSucursal.length == 0){
           swal.fire({
             title:'La Sucursal no tiene paquetes!',
             text: `La sucursal ${sucursal.nombre} no tiene ningun paquete registrado` ,
             icon : "warning"
-          }).then(() => {window.location.reload()})
-
+          }).then(() => {
+            window.location.reload();
+          });
         }else{
 
           this.ingresoTotalSucursal = 0
-          for(let paquete of this.paquetesSucursal) this.ingresoTotalSucursal = this.ingresoTotalSucursal + paquete.precioPaquete
+          for(let paquete of this.paquetesSucursal) this.ingresoTotalSucursal = this.ingresoTotalSucursal + paquete.precioPaquete;
 
         }
-      })
+      });
 
   }
 
   reportarPaquetesDeCategoria(categoria: Categoria){
     this.reportesGerencialesService.buscarPaquetesPorCategoria(categoria.idCategoria).subscribe(
-      paquetesCategoria=> {
-        this.paquetesCategoria = paquetesCategoria
+      (paquetesCategoria) => {
+        this.paquetesCategoria = paquetesCategoria;
 
         if(this.paquetesCategoria.length == 0 ){
           swal.fire({
@@ -67,13 +68,13 @@ export class ReportesGerencialesController implements OnInit {
             icon : "warning"
             }).then(() => {window.location.reload()});
         }else{
-          this.ingresoTotalCategoria = 0
+          this.ingresoTotalCategoria = 0;
 
-          for(let paquete of this.paquetesCategoria) this.ingresoTotalCategoria = this.ingresoTotalCategoria + paquete.precioPaquete
+          for(let paquete of this.paquetesCategoria) this.ingresoTotalCategoria = this.ingresoTotalCategoria + paquete.precioPaquete;
         }
       }
 
-    )
+    );
   }
 
 }
